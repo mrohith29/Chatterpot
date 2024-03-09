@@ -1,27 +1,31 @@
 import cv2
 
 # Load the cascade
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+data = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 # To capture video from webcam
 cap = cv2.VideoCapture(0)
 
 while True:
     # Read the frame
-    _, img = cap.read()
+    _, image = cap.read()
 
     # Convert to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    cv2.imshow('gray', gray)
 
     # Detect the faces
-    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    faces = data.detectMultiScale(gray, 1.1, 4)
 
     # Draw the rectangle around each face
     for (x, y, w, h) in faces:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        cv2.rectangle(image, (x, y), (x+w, y+h), (43, 226, 131), 4)
 
     # Display
-    cv2.imshow('img', img)
+    # cv2.imshow('image', image)
+    # gray = data.detectMUltiScale(gray, 1.1, 4)
+    cv2.imshow('image', image)
+    cv2.inRange(image, (0, 0, 0), (255, 255, 255), gray)
 
     # Stop if escape key is pressed
     k = cv2.waitKey(30)
